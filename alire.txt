@@ -1,0 +1,6 @@
+Premiere etape : Verifier que tout les dependances sont bien installées (torch, cv2, etc...)
+
+Creer une classe qui extends Dataset pour creer notre dataset.
+Elle doit suivre le pattern decrit par 'ibl/datasets/demo.py'
+
+pour lancer le test du dataset : $python3 debug.py

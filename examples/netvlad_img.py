@@ -241,8 +241,8 @@ if __name__ == '__main__':
                         default='none', help='job launcher')
     parser.add_argument('--tcp-port', type=str, default='5017')
     # data
-    parser.add_argument('-d', '--dataset', type=str, default='pitts',
-                        choices=datasets.names())
+    parser.add_argument('-d', '--dataset', type=str, default='lic') #choices=datasets.names()
+                        
     parser.add_argument('--scale', type=str, default='30k')
     parser.add_argument('--tuple-size', type=int, default=1,
                         help="tuple numbers in a batch")

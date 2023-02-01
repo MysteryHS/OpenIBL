@@ -1,17 +1,20 @@
 from __future__ import absolute_import
 import warnings
 
-from .pitts import Pittsburgh
-from .tokyo import Tokyo
+# from .pitts import Pittsburgh
+# from .tokyo import Tokyo
+from .lic import LIC
 
 
 __factory = {
-    'pitts': Pittsburgh,
-    'tokyo': Tokyo,
+    # 'pitts': Pittsburgh,
+    # 'tokyo': Tokyo,
+    'lic': LIC
 }
 
 
 def names():
+    print(__factory)
     return sorted(__factory.keys())
 
 

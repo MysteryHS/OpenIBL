@@ -1,8 +1,7 @@
-#!/bin/sh
 PYTHON=${PYTHON:-"python"}
-GPUS=4
+GPUS=1
 
-DATASET=pitts
+DATASET=lic
 SCALE=30k
 ARCH=vgg16
 LAYERS=conv5
@@ -15,14 +14,25 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-while true # find unused tcp port
-do
-    PORT=$(( ((RANDOM<<15)|RANDOM) % 49152 + 10000 ))
-    status="$(nc -z 127.0.0.1 $PORT < /dev/null &>/dev/null; echo $?)"
-    if [ "${status}" != "0" ]; then
-        break;
-    fi
+# while true # find unused tcp port
+# do
+#     PORT=$(( ((RANDOM<<15)|RANDOM) % 49152 + 10000 ))
+#     status="$(nc -z 127.0.0.1 $PORT < /dev/null &>/dev/null; echo $?)"
+#     if [ "${status}" != "0" ]; then
+#         break;
+#     fi
+#     echo $PORT
+# done
+
+CHECK="do while"
+
+while [[ ! -z $CHECK ]]; do
+    PORT=$(( ( RANDOM % 60000 )  + 1025 ))
+    CHECK=$(sudo netstat -ap | grep $PORT)
 done
+
+echo $PORT
+
 
 $PYTHON -m torch.distributed.launch --nproc_per_node=$GPUS --master_port=$PORT --use_env \
 examples/netvlad_img.py --launcher pytorch --tcp-port ${PORT} \
